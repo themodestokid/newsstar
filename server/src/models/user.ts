@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 import bcrypt from 'bcrypt';
 
@@ -7,9 +8,22 @@ export interface UserAttributes {
   password: string;
   email: string;
 }
+=======
+// import { Model, Optional, Sequelize } from "sequelize";
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
 
+// interface UserAttributes {
+//   id: number;
+//   username: string;
+//   password: string;
+//   email: string;
+//   created_at: Date;
+// }
+>>>>>>> Stashed changes
+
+// interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
+
+<<<<<<< Updated upstream
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes{
   public id!: number;
   public username!: string;
@@ -54,3 +68,20 @@ export function UserFactory(sequelize: Sequelize): typeof User {
     )
     return User;
 }
+=======
+// export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes{
+//   id!: number;
+//   username!: string;
+//   password!: string;
+//   email!: string;
+//   created_at!: Date;
+// }
+
+// export function UserFactory(sequelize: Sequelize): typeof User {
+//     User.init(
+//         {
+            
+//         }
+//     )
+// }
+>>>>>>> Stashed changes
