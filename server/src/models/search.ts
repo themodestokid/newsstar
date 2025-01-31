@@ -49,11 +49,11 @@ export function SearchFactory(sequelize: Sequelize): typeof Search {
             from: {
                 type: DataTypes.DATE,
                 allowNull: true,
-            }
+            },
             to: {
-                type: DataTypes.
+                type: DataTypes.DATE
             }
-        ,}
+        },
         {
             tableName: 'search',
             sequelize,
