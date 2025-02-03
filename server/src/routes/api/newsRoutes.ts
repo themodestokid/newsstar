@@ -15,9 +15,11 @@ router.get('/news', async (_req: Request, res: Response) => {
 
         const response = await axios.get(url);
 
+        console.log('news: got response', response)
         res.status(200).json(response.data);
     } catch (error) {
-        res.status(500).json({error: 'Internal Server Error'})
+        console.log('news: caught error: ', error)
+        res.status(500).json({error: `Internal Server Error: ${error}`})
     }
 })
 
