@@ -11,9 +11,9 @@ dotenv.config();
 router.get('/news', async (_req: Request, res: Response) => {
     try {
         const API_KEY = process.env.API_KEY;
-        const url = `https://newsapi.org/v2/everything?q=general&apiKey=${API_KEY}`
+        const baseUrl = `https://newsapi.org/v2/everything?q=general&apiKey=${API_KEY}`
 
-        const response = await axios.get(url);
+        const response = await axios.get(baseUrl);
 
         res.status(200).json(response.data);
     } catch (error) {
