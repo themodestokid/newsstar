@@ -1,11 +1,12 @@
 import express, { Request, Response} from 'express';
 import { User } from '../../models/index.js';
 import { UserAttributes } from '../../models/user.js';
+import { authenticateToken } from '../../middleware/auth.js';
 
 const router = express.Router()
 
 //create a new user
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authenticateToken, async (req: Request, res: Response) => {
   try {
     const newUser: UserAttributes = req.body;
     console.log('creating new user', newUser)
@@ -19,7 +20,7 @@ router.post("/", async (req: Request, res: Response) => {
 }) 
 
 // GET one user
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', authenticateToken, async (req: Request, res: Response) => {
     try {
       const userData = await User.findByPk(req.params.id);
       console.log('user: retrieved user data: ', userData)
@@ -35,7 +36,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   });
   
     // PUT update a user
-  router.put('/:id', async (req: Request, res: Response) => {
+  router.put('/:id', authenticateToken, async (req: Request, res: Response) => {
     try {
       const userData = await User.update(req.body, {
         where: {

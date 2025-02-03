@@ -1,6 +1,7 @@
 import express, { Request, Response} from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import { authenticateToken } from '../../middleware/auth';
 
 const router = express.Router();
 dotenv.config();
@@ -8,7 +9,7 @@ dotenv.config();
 //This API will fetch the news data from the newsapi 
 // and return general data the first time the user logs in
 
-router.get('/', async (_req: Request, res: Response) => {
+router.get('/', authenticateToken, async (_req: Request, res: Response) => {
     try {
         const API_KEY = process.env.API_KEY;
         const baseUrl = `https://newsapi.org/v2/everything?q=general&apiKey=${API_KEY}`

@@ -1,13 +1,14 @@
 import express, { Request, Response} from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import { authenticateToken } from '../../middleware/auth';
 
 const router = express.Router();
 dotenv.config();
 
 //This API will make requests based on the users search inputs 
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', authenticateToken, async (req: Request, res: Response) => {
     try {
         const { from, to, sortBy, sources, q } = req.body; 
 
