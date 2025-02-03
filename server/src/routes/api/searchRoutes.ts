@@ -1,7 +1,7 @@
 import express, { Request, Response} from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { authenticateToken } from '../../middleware/auth';
+import { authenticateToken } from '../../middleware/auth.js';
 
 const router = express.Router();
 dotenv.config();
