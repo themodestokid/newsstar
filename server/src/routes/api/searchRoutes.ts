@@ -5,6 +5,8 @@ import axios from 'axios';
 const router = express.Router();
 dotenv.config();
 
+//This API will make requests based on the users search inputs 
+
 router.post('/search', async (req: Request, res: Response) => {
     try {
         const { from, to, sortBy, sources, q } = req.body; 
@@ -12,8 +14,8 @@ router.post('/search', async (req: Request, res: Response) => {
         const API_KEY = process.env.API_KEY;
         const baseUrl = `https://newsapi.org/v2/everything?apiKey=${API_KEY}`
 
-        const params: { [key: string]: string } = {};
-
+        const params: { [key: string]: string } = {}; //creating an object with a key of string and values of string
+        
         // Conditionally add parameters if they are provided
         if (q) params.q = q; // Required parameter
         if (from) params.from = from; // Optional parameter
