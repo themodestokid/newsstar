@@ -17,13 +17,32 @@ export default function SearchBar({ onSearch }: SearchProps) {
     }
   };
 
-  const handleSearch = () => {
-    onSearch(query.trim()); 
+  const handleSearch = async () => {
+    console.log("token", localStorage.getItem("loginToken"));
+    if (!query.trim()) {
+      onSearch("");
+      return;
+    }
+    try {
+      const response = await fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bear " + (localStorage.getItem("loginToken") || ""),
+        },
+        body: JSON.stringify({ q: query.trim() }),
+      });
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
+      onSearch(query.trim());
+    } catch (error) {}
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSearch(); 
+      handleSearch();
     }
   };
 

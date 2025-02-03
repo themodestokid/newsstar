@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import SearchBar from "@/components/SearchBar";
 
 interface NewsArticle {
-  id: number;
   title: string;
   content: string;
   image_url: string;
@@ -23,8 +22,9 @@ export default function Home() {
       .catch((err) => console.error("Error fetching news:", err));
   }, []);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
+  const handleSearch = (results: any) => {
+    console.log(results);
+    setSearchQuery(results);
   };
 
   const filteredNews = news.filter((article) =>
@@ -45,8 +45,8 @@ export default function Home() {
 
         <div className="mt-6 w-[65%] max-w-3xl">
           {filteredNews.length > 0 ? (
-            filteredNews.map((article) => (
-              <div key={article.id} className="bg-white p-4 shadow-md rounded-lg mb-4">
+            filteredNews.map((article, index) => (
+              <div key={index} className="bg-white p-4 shadow-md rounded-lg mb-4">
                 <h2 className="text-xl font-bold">{article.title}</h2>
                 <p className="text-gray-600">{article.content.substring(0, 100)}...</p>
               </div>

@@ -11,7 +11,7 @@ interface RequestWithUser extends Request {
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-
+  console.log(req.headers);
   // Check if the authorization header is present
   if (!authHeader) {
     res.status(500).json({

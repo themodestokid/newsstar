@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,13 +16,15 @@ export default function LoginForm() {
       return;
     }
 
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    const response = await fetch("/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
+      const data = await response.json();
 
     if (response.ok) {
+      localStorage.setItem("loginToken", data.token)
       navigate("/");
     } else {
       setErrorMessage("⚠ Invalid username or password. Please try again.");
