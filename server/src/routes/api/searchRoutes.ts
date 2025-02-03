@@ -25,11 +25,12 @@ router.post('/search', async (req: Request, res: Response) => {
 
         // Make the request to the News API
         const response = await axios.get(`${baseUrl}&${new URLSearchParams(params).toString()}`);
+        console.log('search: got response', response)
         res.status(200).json(response.data); // Return the response data
 
     } catch (error) {
-        
-        res.status(404).json({error: 'No News Found Matching Your Search Terms Please Try Again'})
+        console.log('search: caught error:', error)
+        res.status(404).json({error: `No News Found Matching Your Search Terms Please Try Again: ${error}`})
     }
 })
 

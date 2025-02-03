@@ -10,8 +10,10 @@ router.post("/", async (req: Request, res: Response) => {
     const newUser: UserAttributes = req.body;
     console.log('creating new user', newUser)
     const userData = await User.create(newUser);
-      res.status(200).json(userData);
+    console.log('user: created user: ', userData)
+    res.status(200).json(userData);
   } catch (err) {
+      console.log('user: caught error: ', err)
       res.status(400).json(err);
   }
 }) 
@@ -20,12 +22,14 @@ router.post("/", async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
     try {
       const userData = await User.findByPk(req.params.id);
+      console.log('user: retrieved user data: ', userData)
       if (!userData) {
         res.status(404).json({ message: 'No user with this id!' });
         return;
       }
       res.status(200).json(userData);
     } catch (err) {
+      console.log('user: caught error: ', err)
       res.status(500).json(err);
     }
   });
@@ -39,12 +43,14 @@ router.get('/:id', async (req: Request, res: Response) => {
         },
         individualHooks: true
       });
+      console.log('user: updated user data: ', userData)
       if (!userData[0]) {
         res.status(404).json({ message: 'No user with this id!' });
         return;
       }
       res.status(200).json(userData);
     } catch (err) {
+      console.log('user: caught error: ', err)
       res.status(500).json(err);
     }
   });
