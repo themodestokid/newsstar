@@ -7,7 +7,7 @@ dotenv.config();
 
 //This API will make requests based on the users search inputs 
 
-router.post('/search', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
     try {
         const { from, to, sortBy, sources, q } = req.body; 
 
