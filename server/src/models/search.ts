@@ -51,7 +51,8 @@ export function SearchFactory(sequelize: Sequelize): typeof Search {
                 allowNull: true,
             },
             to: {
-                type: DataTypes.DATE
+                type: DataTypes.DATE,
+                allowNull: true
             }
         },
         {

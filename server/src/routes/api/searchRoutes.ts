@@ -2,6 +2,8 @@ import express, { Request, Response} from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import { authenticateToken } from '../../middleware/auth.js';
+import { Search } from '../../models/search.js';
+import { User } from '../../models/user.js';
 
 const router = express.Router();
 dotenv.config();
@@ -24,11 +26,24 @@ router.post('/', authenticateToken, async (req: Request, res: Response) => {
         if (sortBy) params.sortBy = sortBy; // Optional parameter
         if (sources) params.sources = sources; // Optional parameter
 
+
         // Make the request to the News API
         const url = `${baseUrl}&${new URLSearchParams(params).toString()}`;
         console.log('search: requesting', url)
         const response = await axios.get(url);
         console.log('search: got response', response)
+        
+        const user = await User.findOne({where:{username: (req as any).user.username}})
+        // Save the search to the database
+        const search = await Search.create({
+            user_id: user!.id,
+            searchterm: q,
+            sortBy: sortBy,
+            sources: sources,
+            from: from,
+            to: to
+        });
+        console.log('search: saved search to database', search);
         res.status(200).json(response.data); // Return the response data
 
     } catch (error) {

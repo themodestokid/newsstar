@@ -11,5 +11,4 @@ router.use('/auth', authRoutes);
 router.use('/', htmlRoutes);
 
 
-
 export default router;
