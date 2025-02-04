@@ -10,6 +10,19 @@ dotenv.config();
 
 //This API will make requests based on the users search inputs 
 
+router.get('/history', authenticateToken, async (req: Request, res: Response) => {
+    try {
+        const user = await User.findOne({where:{username: (req as any).user.username}})
+        const history = await Search.findAll({
+            where: { user_id: user!.id }
+        })
+        res.status(200).json({history})
+
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
 router.post('/', authenticateToken, async (req: Request, res: Response) => {
     try {
         const { from, to, sortBy, sources, q } = req.body; 
@@ -51,5 +64,7 @@ router.post('/', authenticateToken, async (req: Request, res: Response) => {
         res.status(404).json({error: `No News Found Matching Your Search Terms Please Try Again: ${error}`})
     }
 })
+
+
 
 export default router;

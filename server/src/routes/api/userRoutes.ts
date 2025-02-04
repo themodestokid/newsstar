@@ -6,7 +6,7 @@ import { authenticateToken } from '../../middleware/auth.js';
 const router = express.Router()
 
 //create a new user
-router.post("/", authenticateToken, async (req: Request, res: Response) => {
+router.post("/",  async (req: Request, res: Response) => {
   try {
     const newUser: UserAttributes = req.body;
     console.log('creating new user', newUser)
