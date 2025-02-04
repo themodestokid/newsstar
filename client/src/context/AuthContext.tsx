@@ -22,8 +22,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (username: string, password: string) => {
-    //TODO: db here
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    // checking for db connection here
+    const response = await fetch("/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
