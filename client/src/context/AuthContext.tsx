@@ -31,8 +31,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (response.ok) {
       const data = await response.json();
-      setUser({ username: data.username, role: data.role });
-      localStorage.setItem("user", JSON.stringify(data));
+      setUser({ username: username, role: "" });
+      localStorage.setItem("loginToken", data.token);
     } else {
       alert("Invalid credentials");
     }
