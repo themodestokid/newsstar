@@ -36,7 +36,7 @@ export default function SearchBar({ onSearch }: SearchProps) {
         return;
       }
       const data = await response.json();
-      onSearch(query.trim());
+      onSearch(data);
     } catch (error) {}
   };
 

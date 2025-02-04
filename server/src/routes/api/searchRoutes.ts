@@ -25,7 +25,9 @@ router.post('/', authenticateToken, async (req: Request, res: Response) => {
         if (sources) params.sources = sources; // Optional parameter
 
         // Make the request to the News API
-        const response = await axios.get(`${baseUrl}&${new URLSearchParams(params).toString()}`);
+        const url = `${baseUrl}&${new URLSearchParams(params).toString()}`;
+        console.log('search: requesting', url)
+        const response = await axios.get(url);
         console.log('search: got response', response)
         res.status(200).json(response.data); // Return the response data
 
