@@ -4,12 +4,12 @@ import RegisterForm from "@/components/RegisterForm";
 export default function Register() {
   const navigate = useNavigate();
 
-  const handleRegister = async (username: string, password: string) => {
-    //TODO: db here
-    const response = await fetch("http://localhost:5000/api/auth/register", {
+  const handleRegister = async (username: string, password: string, email: string) => {
+    
+    const response = await fetch("/api/users/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     });
 
     if (response.ok) {
