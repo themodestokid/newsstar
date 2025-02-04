@@ -6,30 +6,43 @@ interface NewsArticle {
   content: string;
   image_url: string;
   category: string;
+  article_url: string;
 }
 
 export default function Home() {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  async function retrieveNews() {
+    try {
+      const response = await fetch("/api/news", {
+        method: "GET",
+        headers: {
+          Authorization: "bear " + (localStorage.getItem("loginToken") || ""),
+        }})
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        handleSearch(data);
+    } catch (error) {}
+  }
   useEffect(() => {
-    fetch("http://localhost:5000/api/news")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched News:", data);
-        setNews(data);
-      })
-      .catch((err) => console.error("Error fetching news:", err));
+    retrieveNews()
   }, []);
 
   const handleSearch = (results: any) => {
     console.log(results);
-    setSearchQuery(results);
+    const articles = results.articles.map((element: any) => { return {
+      title: element.title,
+      content: element.content,
+      image_url: element.urlToImage,
+      category: "",
+      article_url: element.url
+    }})
+    console.log('setting news: ', articles)
+    setNews(articles);
   };
-
-  const filteredNews = news.filter((article) =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="flex flex-col overflow-hidden">
@@ -44,10 +57,11 @@ export default function Home() {
         ) : null}
 
         <div className="mt-6 w-[65%] max-w-3xl">
-          {filteredNews.length > 0 ? (
-            filteredNews.map((article, index) => (
+          {news.length > 0 ? (
+            news.map((article, index) => (
               <div key={index} className="bg-white p-4 shadow-md rounded-lg mb-4">
-                <h2 className="text-xl font-bold">{article.title}</h2>
+                <img width={100} src={article.image_url} />
+                <h2 className="text-xl font-bold"><a href={article.article_url}>{article.title}</a></h2>
                 <p className="text-gray-600">{article.content.substring(0, 100)}...</p>
               </div>
             ))

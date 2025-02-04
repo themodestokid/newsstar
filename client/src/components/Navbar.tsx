@@ -53,9 +53,9 @@ export default function Navbar() {
       </Link>
       <div className="flex items-center justify-between w-full mt-4">
         <div className="flex-grow flex justify-center gap-[140px] text-sm font-fjalla">
-          <span>London: {timezones.Greenwich}</span>
+        <span>Los Angeles: {timezones.PST}</span>
+        <span>London: {timezones.Greenwich}</span>
           <span>New York: {timezones.EST}</span>
-          <span>Los Angeles: {timezones.PST}</span>
           <span>Kyiv: {timezones.Kyiv}</span>
           <span>Tokyo: {timezones.Tokyo}</span>
         </div>
